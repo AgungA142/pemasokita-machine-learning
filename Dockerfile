@@ -10,6 +10,11 @@ COPY requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
+# Install OpenCV
+RUN apt-get update && \
+    apt-get install -y libgl1-mesa-dev && \
+    pip install opencv-python
+
 COPY . .
 
 EXPOSE 8080
@@ -19,5 +24,3 @@ ENV PYTHONUNBUFFERED=1
 # CMD ["python", "main.py"]
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
-# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--PORT", "80"]
-# app.run(port=int(os.environ.get("PORT", 8080)),host='0.0.0.0',debug=True)

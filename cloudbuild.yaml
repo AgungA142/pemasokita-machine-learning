@@ -18,5 +18,9 @@
    - '--allow-unauthenticated'
    - '--region'
    - 'asia-southeast2'
+   - '--cpu'
+   - '2'
+   - '--memory'
+   - '4Gi'
  images:
  - 'gcr.io/$PROJECT_ID/model-pmskt:$COMMIT_SHA'

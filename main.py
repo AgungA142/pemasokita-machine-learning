@@ -18,7 +18,7 @@ class BeanQuality(str, Enum):
 
 
 # Load the pre-trained model
-new_model = tf.keras.models.load_model('Models/model_bean_condition.h5')
+new_model = tf.keras.models.load_model('deploy-model-pmskt/model_bean_condition.h5')
 
 # Define the predict endpoint
 

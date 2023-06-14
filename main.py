@@ -4,10 +4,10 @@ import cv2
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
-from starlette.responses import StreamingResponse
 import uvicorn
+import os
 
-app = FastAPI(debug=True)  # Create a new FastAPI app instance
+app = FastAPI()  # Create a new FastAPI app instance
 
 # Define an Enum class to represent the possible categories for an item
 
@@ -58,3 +58,7 @@ async def predict(file: UploadFile = File(..., description="Image file to predic
     result = predict_image(img)
 
     return result
+
+port = os.environ.get("PORT", 8080)
+print(f"Listening to http://0.0.0.0:{port}")
+uvicorn.run(app, host='0.0.0.0',port=port)

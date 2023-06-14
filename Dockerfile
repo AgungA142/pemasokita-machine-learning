@@ -1,6 +1,6 @@
 FROM python:3.10.10
 
-WORKDIR /app
+WORKDIR /workspace
 
 ENV PIP_ROOT_USER_ACTION=ignore
 

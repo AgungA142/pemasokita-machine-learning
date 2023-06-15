@@ -5,6 +5,8 @@ COPY requirements.txt .
 COPY main.py .
 
 # install dependencies
+RUN pip install opencv-python
+RUN pip install numpy matplotlib
 RUN pip install -r requirements.txt
 
 # expose port

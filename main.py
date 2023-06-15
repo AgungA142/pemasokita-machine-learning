@@ -6,10 +6,25 @@ from PIL import Image
 from io import BytesIO
 import numpy as np
 from enum import Enum
+from google.cloud import storage
+import os
 
 # initiate an app
 app = FastAPI()
-new_model = tf.keras.models.load_model('bean_condition_saved_model')
+
+storage_client = storage.Client.from_service_account_json('pemasokitaapp-88d376251f72.json')
+bucket = storage_client.bucket('model-bucket-pmskt')
+blob = bucket.blob('best_model_coba3.h5')
+
+destination_filename = 'best_model_coba3.h5'
+
+if not os.path.exists(destination_filename):
+    blob.download_to_filename(destination_filename)
+    print('File downloaded.')
+else:
+    print('File already exists.')
+
+new_model = tf.keras.models.load_model('best_model_coba3.h5')
 # create a greeting message for an endpoint '/'
 # we use neither path nor query parameters in this endpoint
 

@@ -1,6 +1,6 @@
 fastapi
 pydantic
-uvicorn[standard]
+uvicorn==0.15.0
 python-multipart
 numpy
 Pillow

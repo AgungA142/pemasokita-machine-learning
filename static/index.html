@@ -1,11 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pemasokita</title>
+
+    <style>
+      *,
+      *:before,
+      *:after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 2rem 1.5rem;
+        font: 1rem/1.5 "PT Sans", Arial, sans-serif;
+        color: #5a5a5a;
+      }
+
+      /* Style the file input */
+      .file {
+        position: relative;
+        display: inline-block;
+      }
+
+      /* Hide the default file input */
+      .file input[type="file"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+      }
+
+      /* Style the custom file input */
+      .file-custom {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      /* Style the submit button */
+      .submit-button {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .submit-button:hover {
+        background-color: #0056b3;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .forminput {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        border: 2px solid gray;
+        border-radius: 2%;
+      }
+
+      .preview-image-container {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        margin-bottom: 10px;
+      }
+
+      .preview-image {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .navbar a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+        transition: background-color 0.3s ease;
+      }
+
+      .navbar a:hover {
+        background-color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form
+        class="forminput"
+        id="condition"
+        action="/predict_condition"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <h2>Condition</h2>
+        <div class="preview-image-container" id="image-preview-condition"></div>
+
+        <label class="file">
+          <input
+            type="file"
+            name="uploaded_file"
+            id="file-condition"
+            aria-label="File browser example"
+            accept="image/*"
+            onchange="previewImage(event, 'image-preview-condition')"
+          />
+          <span class="file-custom">Choose File</span>
+        </label>
+
+        <input type="submit" value="Submit" class="submit-button" />
+        <p id="result-condition"></p>
+      </form>
+
+      <form
+        class="forminput"
+        id="roast"
+        action="/predict_roast"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <h2>Roast</h2>
+        <div class="preview-image-container" id="image-preview-roast"></div>
+
+        <label class="file">
+          <input
+            type="file"
+            name="uploaded_file"
+            id="file-roast"
+            aria-label="File browser example"
+            accept="image/*"
+            onchange="previewImage(event, 'image-preview-roast')"
+          />
+          <span class="file-custom">Choose File</span>
+        </label>
+
+        <input type="submit" value="Submit" class="submit-button" />
+        <p id="result-roast"></p>
+      </form>
+
+      <form
+        class="forminput"
+        id="type"
+        action="/predict_type"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <h2>Type</h2>
+        <div class="preview-image-container" id="image-preview-type"></div>
+
+        <label class="file">
+          <input
+            type="file"
+            name="uploaded_file"
+            id="file-type"
+            aria-label="File browser example"
+            accept="image/*"
+            onchange="previewImage(event, 'image-preview-type')"
+          />
+          <span class="file-custom">Choose File</span>
+        </label>
+
+        <input type="submit" value="Submit" class="submit-button" />
+        <p id="result-type"></p>
+      </form>
+    </div>
+
+    <script>
+      function previewImage(event, previewId) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function () {
+          const imgElement = document.createElement("img");
+          imgElement.src = reader.result;
+          imgElement.classList.add("preview-image");
+
+          const previewContainer = document.getElementById(previewId);
+          // Clear previous image preview
+          previewContainer.innerHTML = "";
+          // Append the new image preview
+          previewContainer.appendChild(imgElement);
+
+          // Adjust image size
+          imgElement.addEventListener("load", () => {
+            const aspectRatio =
+              imgElement.naturalWidth / imgElement.naturalHeight;
+            const containerWidth = previewContainer.offsetWidth;
+            const containerHeight = previewContainer.offsetHeight;
+            let width = containerWidth;
+            let height = containerWidth / aspectRatio;
+
+            if (height > containerHeight) {
+              height = containerHeight;
+              width = height * aspectRatio;
+            }
+
+            imgElement.style.width = `${width}px`;
+            imgElement.style.height = `${height}px`;
+          });
+        };
+
+        reader.readAsDataURL(file);
+      }
+
+      const formCondition = document.getElementById("condition");
+      formCondition.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(formCondition);
+        const response = await fetch("/predict_condition", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const result = data.result;
+          // Update the HTML with the result
+          document.getElementById("result-condition").textContent = result;
+        } else {
+          console.error("Error:", response.status);
+        }
+      });
+
+      const formRoast = document.getElementById("roast");
+      formRoast.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(formRoast);
+        const response = await fetch("/predict_roast", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const result = data.result;
+          // Update the HTML with the result
+          document.getElementById("result-roast").textContent = result;
+        } else {
+          console.error("Error:", response.status);
+        }
+      });
+
+      const formType = document.getElementById("type");
+      formType.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(formType);
+        const response = await fetch("/predict_type", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const result = data.result;
+          // Update the HTML with the result
+          document.getElementById("result-type").textContent = result;
+        } else {
+          console.error("Error:", response.status);
+        }
+      });
+    </script>
+  </body>
 </html>

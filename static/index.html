@@ -97,30 +97,50 @@
         max-height: 100%;
       }
 
+      form > input {
+        margin-top: 5px;
+        background-color: #224300 !important;
+      }
+
       .navbar {
         display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background-color: #224300;
+        margin-bottom: 15px;
+        border-radius: 20px;
       }
 
-      .navbar a {
-        margin: 0 10px;
-        text-decoration: none;
-        color: #333;
+      .navbar-brand {
         font-weight: bold;
-        font-size: 18px;
-        padding: 5px 10px;
-        border-radius: 4px;
-        background-color: #f0f0f0;
-        transition: background-color 0.3s ease;
+        color: white;
+        font-size: 20px;
       }
 
-      .navbar a:hover {
-        background-color: #ccc;
+      .navbar-menu {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .navbar-menu-item {
+        list-style: none;
+        text-decoration: none;
       }
     </style>
   </head>
   <body>
+    <!-- Add the navbar markup -->
+    <div class="navbar">
+      <div class="navbar-brand">Pemasokita</div>
+      <div class="navbar-brand">Bean Detection</div>
+      <ul class="navbar-menu">
+        <!-- <li class="navbar-menu-item"><a href="#">Menu 1</a></li>
+        <li class="navbar-menu-item"><a href="#">Menu 2</a></li>
+        <li class="navbar-menu-item"><a href="#">Menu 3</a></li> -->
+      </ul>
+    </div>
+
     <div class="container">
       <form
         class="forminput"
@@ -299,5 +319,6 @@
         }
       });
     </script>
+     
   </body>
 </html>

@@ -28,5 +28,12 @@ Endpoint: GET `/upload` <br>
 
 The main page to use the app, upload an image and click the button to use the model and see the result.
 
+Documentation:
+![WhatsApp Image 2023-06-16 at 20 43 24](https://github.com/suryanurjaman/pemasokita-machine-learning/assets/76623119/8fce47fc-0839-41a4-9faa-eca27b149d29)
+![WhatsApp Image 2023-06-16 at 20 44 19](https://github.com/suryanurjaman/pemasokita-machine-learning/assets/76623119/a11254a6-d169-423b-88a9-73818a80ab81)
+
+
+**NOTE**: the key.json is for deployment purpose it access the service account on the google cloud to download the condition model directly to the same directory as *main.py* along with the other file 
+
 
 

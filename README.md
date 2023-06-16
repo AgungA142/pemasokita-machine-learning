@@ -21,7 +21,7 @@ to automatically restart the kernel everytime there's a change saved inside `mai
 # Using The App
 1. clone this repository 
 2. download the model in this link: https://drive.google.com/drive/folders/1N7EMzV63SgdF6qKa2lFg2Z7nY4dSLfeK?usp=sharing
-3. save the downloaded model in the save directory as the **main.py** file
+3. save the downloaded model in the same directory as the **main.py** file
 4. run app using the command mentioned before
 ### 1. Index
 Endpoint: GET `/upload` <br>

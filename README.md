@@ -33,7 +33,7 @@ Documentation:
 ![WhatsApp Image 2023-06-16 at 20 44 19](https://github.com/suryanurjaman/pemasokita-machine-learning/assets/76623119/a11254a6-d169-423b-88a9-73818a80ab81)
 
 
-**NOTE**: the key.json is for deployment purpose it access the service account on the google cloud to download the condition model directly to the same directory as *main.py* along with the other file 
+**NOTE**: the key.json is for deployment purpose it access the service account on the google cloud to download the condition model directly to the same directory as *main.py* along with the other file, for now the deployed model on the cloud service is only the condition model for deployment testing purpose of the cloud computing
 
 
 
